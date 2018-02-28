@@ -1,0 +1,211 @@
+#include <iostream>
+
+using namespace std;
+
+
+ struct nod{
+           int info;
+           nod *next;
+            };
+nod *start;
+
+
+//a)
+void adaugare_final(int nr)
+{
+     nod *f= new nod;
+     f->info=nr;
+     f->next=NULL;
+
+     if(start==NULL)
+        start=f;
+
+     else
+       {
+         nod *temp= new nod;
+         temp=start;
+         while(temp->next!=NULL)
+           {
+             temp=temp->next;
+           }
+             temp->next=f;
+        }
+}
+
+
+//b)
+void adaugare_inceput(int val)
+ {
+
+     nod *p = new nod;
+     p->info=val;
+     p->next=start;
+     start=p;
+
+ }
+
+//c)
+void adaugare_inainte_de_o_val(int valz,int val,nod *p)
+{
+    p=start;
+
+    nod *oldp,*z;       //z e nodul adaugat
+    oldp = new nod;     //valz e valoarea nodului adaugat
+    z = new nod;        //val e valoarea inaintea careia adaugam nodul
+    z->info=valz;
+
+    while((p->info!=val)&&(p!=NULL))
+        {oldp=p;
+         p=p->next;}
+
+    if(p!=NULL)
+    {oldp->next=z;
+     z->next=p;}
+    else
+        cout<<"Valoarea introdusa nu este in stiva!";
+
+    if(p==start)   //cazul in care nodul trebuie adaugat inainte de primul nod
+        start=z;
+
+}
+
+//d)
+void afisare(nod *p)
+ {
+
+     p=start;
+     while(p!=NULL)
+     {
+         cout<<p->info<<' ';
+         p=p->next;
+     }
+ }
+
+//e)
+void cautare_dupa_valoare(int val,nod *p)
+{
+    p=start;                               //val este valoare elementului cautat
+    int i=1;                               //subprogramul afiseaza pozitia pe care se afla acesta
+     while((p!=NULL)&&(p->info!=val))
+        {p=p->next;
+         i++;}
+    if(p!=NULL)
+        cout<<"Pozitia lui este:"<<i<<endl;
+    else
+        cout<<"Cautarea nu a avut succes"<<endl;
+
+}
+
+//f)
+void cautare_dupa_pozitie(int poz,nod *p)
+{
+   p=start;
+   int s=1;                         //poz este pozitia elementului cautat
+   while((p!=NULL)&&(s<poz))          //subprogramul afiseaza elementul de pe acea pozitie
+        {p=p->next;
+         s++;}
+
+    if(p!=NULL)
+       cout<<"Elementul cautat este "<<p->info<<endl;
+    else
+       cout<<"Pozitia introdusa este invalida!"<<endl;
+
+}
+
+//g)
+void stergere_dupa_valoare(int val,nod *p)
+{
+     p=start;
+
+     nod *oldp;         //val este valoare elementului
+     oldp = new nod;    //pe care subprogramul il va sterge
+
+     if(p->info==val)   //cazul in care elementul de sters e pe prima poz
+        start=p->next;
+
+     while((p!=NULL)&&(p->info!=val))
+        {
+            oldp=p;
+            p=p->next;
+        }
+
+     if(p!=NULL)
+       {
+           oldp->next=p->next;
+           delete p;
+       }
+     else
+        cout<<"Valoarea introdusa nu se afla in lista!"<<endl;
+
+}
+
+//h)
+void stergere_dupa_pozitie(int poz,nod *p)
+{
+     p=start;
+
+     nod *oldp;         //poz este pozitia elementului
+     oldp = new nod;    //pe care subprogramul il va sterge
+
+     int i=1;
+
+     if(poz==i)          //cazul in care elementul de sters e pe prima poz
+        start=p->next;
+
+     while((p!=NULL)&&(i<poz))
+        {
+            oldp=p;
+            p=p->next;
+            i++;
+         }
+
+     if(p!=NULL)
+      {
+          oldp->next=p->next;
+          delete p;
+      }
+     else
+        cout<<"Pozitia introdusa este invalida!"<<endl;
+
+}
+
+//i)
+void stergere_in_intregime(nod *p)
+{
+     p=start;
+
+      while(p->next!=NULL)
+        delete p->next;
+      delete p;
+}
+
+ int main()
+ {
+     nod *r,*q,*n,*o,*t;
+     t = new nod;
+     start = new nod;
+     r= new nod;
+     q= new nod;
+     n= new nod;
+     o=new nod;
+
+     int val,i;
+     start->info=1;
+     start->next=q;
+
+     q->info=2;
+     q->next=n;
+     n->info=3;
+     n->next=o;
+     o->info=4;
+     o->next=NULL;
+
+     adaugare_inceput(3);
+
+     afisare(r);
+
+
+
+ }
+
+
